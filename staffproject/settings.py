@@ -12,6 +12,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Locale apps
     'departments',
+    'staff',
 
     # Django modules
     'django.contrib.admin',
