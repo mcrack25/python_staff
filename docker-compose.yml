@@ -1,0 +1,36 @@
+version: "3.9"
+   
+services:
+  db:
+    image: postgres:14
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  redis:
+    image: redis:5
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+  web:
+    <<: &web
+      build: .
+      environment:
+        - DATABASE_URL=postgres://postgres:postgres@db/postgres
+        - REDIS_URL=redis://redis
+      depends_on:
+        - db
+        - redis
+      volumes:
+        - web-media:/code/media/
+        - web-staticfiles:/code/staticfiles/
+      ports:
+        - "8000:8000"
+      command: python manage.py runserver 0.0.0.0:8000
+volumes:
+  db-data:
+  redis-data:
+  web-media:
+  web-staticfiles:
