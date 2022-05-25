@@ -36,7 +36,7 @@ class Staff(models.Model):
     department = models.ForeignKey(Department, models.PROTECT, verbose_name='подразделение')
 
     def __str__(self):
-        return f'{self.lname} {self.fname}{" " + self.sname if self.sname else ""}'
+        return ' '.join(filter(None, [self.lname, self.fname, self.sname]))
 
     class Meta:
         verbose_name = 'Сотрудник'
