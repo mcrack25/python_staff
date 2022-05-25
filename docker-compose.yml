@@ -15,7 +15,7 @@ services:
       build: .
       environment:
         - DATABASE_URL=postgres://postgres:postgres@db/postgres
-        - VIRTUAL_HOST=exampes.localhost
+        - VIRTUAL_HOST=staff.localhost
       depends_on:
         - db
       volumes:
