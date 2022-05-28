@@ -19,6 +19,7 @@ services:
       depends_on:
         - db
       volumes:
+        - .:/code
         - web-media:/code/media/
         - web-staticfiles:/code/staticfiles/
       ports:
