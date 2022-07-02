@@ -7,9 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
             this.modalId = 'crop-widget-modal';
         }
 
+        getModal() {
+            return document.getElementById(this.modalId);
+        }
+
         hasModal() {
             console.log('hasModal');
-            if (document.getElementById(this.modalId)) {
+            if (this.getModal()) {
                 return true;
             }
             return false;
@@ -27,16 +31,19 @@ document.addEventListener("DOMContentLoaded", () => {
                             </button>
                         </header>
                         <section class="modal-content">
-                            <p><strong>Press ✕, ESC, or click outside of the modal to close it</strong></p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo repellendus reprehenderit accusamus totam
-                                ratione! Nesciunt, nemo dolorum recusandae ad ex nam similique dolorem ab perspiciatis qui. Facere,
-                                dignissimos. Nemo, ea.</p>
-                            <p>Nullam vitae enim vel diam elementum tincidunt a eget metus. Curabitur finibus vestibulum rutrum.
-                                Vestibulum semper tellus vitae tortor condimentum porta. Sed id ex arcu. Vestibulum eleifend tortor non
-                                purus porta dapibus</p>
+                            <img src="" class="crop-widget-modal__img">
                         </section>
                         <footer class="modal-footer">
-                            The footer of the second modal
+                            <div class="btn-group pull-left" role="group">
+                                <button type="button" class="btn btn-default js-zoom-in">
+                                    <span class="glyphicon glyphicon-zoom-in"></span>
+                                </button>
+                                <button type="button" class="btn btn-default js-zoom-out">
+                                    <span class="glyphicon glyphicon-zoom-out"></span>
+                                </button>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                            <button type="button" class="btn btn-primary js-crop-and-upload">Crop and upload</button>
                         </footer>
                     </div>
                 </div>`;
@@ -50,13 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         openModal() {
-            document.getElementById(this.modalId).classList.add(this.isVisible);
+            this.addImgToModal();
+            this.getModal().classList.add(this.isVisible);
         }
 
         closeModal() {
-            const modal = document.getElementById(this.modalId);
-            if (modal.classList.contains(this.isVisible)) {
-                modal.classList.remove(this.isVisible);
+            if (this.getModal().classList.contains(this.isVisible)) {
+                this.getModal().classList.remove(this.isVisible);
             };
         }
 
@@ -74,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         addCloseListenners() {
             console.log('addCloseListenner');
 
-            const modal = document.getElementById(this.modalId);
+            const modal = this.getModal();
 
             // close by button
             modal.querySelector('.close-modal').addEventListener("click", e => {
@@ -98,6 +105,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     this.clearFileInput();
                 }
             });
+        }
+
+        addImgToModal() {
+            const modal = this.getModal();
+            const fileImage = this.widget.querySelector('input[type=file]').files[0];
+            const reader  = new FileReader();
+            reader.readAsDataURL(fileImage);
+            reader.onloadend = function () {
+                modal.querySelector('.crop-widget-modal__img').src = reader.result;
+            }
         }
 
         run() {

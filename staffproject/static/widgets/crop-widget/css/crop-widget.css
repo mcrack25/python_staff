@@ -58,6 +58,10 @@
   z-index: 999;
 }
 
+.crop-widget-modal__img {
+  max-width: 100%;
+}
+
 .crop-widget-modal .modal-dialog {
   background: #fff;
   color: #333;
