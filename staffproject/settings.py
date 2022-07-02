@@ -1,3 +1,4 @@
+import os
 import dj_database_url
 from pathlib import Path
 
@@ -13,6 +14,7 @@ INSTALLED_APPS = [
     # Locale apps
     'departments',
     'staff',
+    'album',
 
     # Django modules
     'django.contrib.admin',
@@ -85,6 +87,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = os.environ.get('STATIC_URL', '/static/')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'staffproject/static'
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
