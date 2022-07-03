@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+    
+
 
     class CropWidget {
         constructor(widget) {
@@ -19,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return false;
         }
 
-        templateModal() {
+        getTemplateModal() {
             console.log('templateModal');
             return `
                 <div class="modal crop-widget-modal" id="${this.modalId}">
@@ -34,16 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <img src="" class="crop-widget-modal__img">
                         </section>
                         <footer class="modal-footer">
-                            <div class="btn-group pull-left" role="group">
-                                <button type="button" class="btn btn-default js-zoom-in">
-                                    <span class="glyphicon glyphicon-zoom-in"></span>
-                                </button>
-                                <button type="button" class="btn btn-default js-zoom-out">
-                                    <span class="glyphicon glyphicon-zoom-out"></span>
-                                </button>
-                            </div>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
-                            <button type="button" class="btn btn-primary js-crop-and-upload">Crop and upload</button>
+                            eee
                         </footer>
                     </div>
                 </div>`;
@@ -52,13 +45,25 @@ document.addEventListener("DOMContentLoaded", () => {
         createModal() {
             console.log('createModal');
             if (!this.hasModal()) {
-                document.querySelector('body').insertAdjacentHTML('beforeend', this.templateModal());
+                document.querySelector('body').insertAdjacentHTML('beforeend', this.getTemplateModal());
             }
         }
 
         openModal() {
             this.addImgToModal();
             this.getModal().classList.add(this.isVisible);
+            setTimeout(() => {
+                this.initCropper();
+            }, 1000);
+        }
+
+        initCropper() {
+            console.log('initCropper');
+            const image = this.getModal().querySelector('.crop-widget-modal__img');
+            new Cropper(image, {
+                aspectRatio: 3/4,
+                viewMode: 3
+            });
         }
 
         closeModal() {
