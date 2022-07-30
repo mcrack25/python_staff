@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-
-
     class CropWidget {
         constructor(widget) {
             this.widget = widget;
@@ -27,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="modal crop-widget-modal" id="${this.modalId}">
                     <div class="modal-dialog">
                         <header class="modal-header">
-                            The header of the second modal
+                            Выберите область и нажмите кнопку "Обрезать"
                             <button class="close-modal" aria-label="close modal" data-close>
                                 ✕
                             </button>
@@ -35,8 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
                         <section class="modal-content">
                             <img src="" class="crop-widget-modal__img">
                         </section>
-                        <footer class="modal-footer">
-                            eee
+                        <footer class="modal-footer crop-widget-modal__footer">
+                            <div class="crop-widget-modal__left-buttons"></div>
+                            <div class="crop-widget-modal__right-buttons">
+                                <button class="crop-widget-modal__button" type="button">Обрезать</button>
+                            </div>
                         </footer>
                     </div>
                 </div>`;
@@ -60,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         initCropper() {
             console.log('initCropper');
             const image = this.getModal().querySelector('.crop-widget-modal__img');
-            new Cropper(image, {
+            this.cropper = new Cropper(image, {
                 aspectRatio: 3/4,
                 viewMode: 3
             });
@@ -69,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         closeModal() {
             if (this.getModal().classList.contains(this.isVisible)) {
                 this.getModal().classList.remove(this.isVisible);
+                this.cropper.destroy();
             };
         }
 
@@ -95,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.clearFileInput();
             });
 
-            // close by keydowwn esc
+            // close by keydown esc
             document.addEventListener("keyup", e => {
                 if (e.key == "Escape" && modal.classList.contains(this.isVisible)) {
                     this.closeModal();

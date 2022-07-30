@@ -43,10 +43,28 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 14px;
+  color: #5c5c5c;
+  padding: 10px;
 }
 
-.modal-header .close-modal {
-  font-size: 1.5rem;
+.close-modal {
+  padding: 0;
+  font-size: 24px;
+  line-height: 24px;
+  border: none;
+  background: transparent;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  color: #7a7a7a;
+}
+
+.modal-content {
+  padding: 0;
 }
 
 .modal p + p {
@@ -66,4 +84,27 @@
 .crop-widget-modal .modal-dialog {
   background: #fff;
   color: #333;
+}
+
+.crop-widget-modal__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.crop-widget-modal__button {
+  background: #0142db;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.crop-widget-modal__button:hover {
+  background: #2868ff;
 }
